@@ -5,7 +5,8 @@
     },
     "dependencies": {
         "@actions/core": "^1.2.1",
-        "@actions/github": "^2.0.1"
+        "@actions/github": "^2.0.1",
+        "surge": "^0.21.3"
     },
     "scripts": {
         "build": "ncc build -m src/index.ts -o dist"
