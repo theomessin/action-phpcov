@@ -26,3 +26,5 @@ jobs:
         php -r "file_exists('.env') || copy('.env.example', '.env');"
         php artisan key:generate
     - uses: theomessin/action-phpcov@master
+      with:
+        now_token: ${{ secrets.NOW_TOKEN }}
