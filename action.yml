@@ -2,5 +2,5 @@
 name: 'phpcov'
 description: 'GitHub Action to turbocharge phpunit code coverage reports'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'node12'
+  main: 'dist/index.js'
