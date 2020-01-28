@@ -7,4 +7,12 @@ jobs:
     - uses: actions/checkout@v2
       with:
         repository: laravel/laravel
+    - uses: shivammathur/setup-php@master
+      with:
+        php-version: '7.4'
+        extension-csv: mbstring, dom, fileinfo
+    - run: |
+        composer install --no-suggest --prefer-dist --optimize-autoloader
+        php -r "file_exists('.env') || copy('.env.example', '.env');"
+        php artisan key:generate
     - uses: theomessin/action-phpcov@master

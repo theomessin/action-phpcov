@@ -1,3 +1,3 @@
 #!/bin/bash
 set -eu pipefail
-ls -al /github/workspace
+php -dpcov.enabled=1 ./vendor/bin/phpunit --coverage-text
