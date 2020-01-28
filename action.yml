@@ -1,0 +1,6 @@
+# action.yml
+name: 'phpcov'
+description: 'GitHub Action to turbocharge phpunit code coverage reports'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
