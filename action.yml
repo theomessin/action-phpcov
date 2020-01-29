@@ -10,7 +10,7 @@ inputs:
   now_token:
     required: true
   min_coverage:
-    default: 75
+    default: 50
     required: true
 outputs:
   url:
