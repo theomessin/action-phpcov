@@ -39,7 +39,7 @@ import * as github from "@actions/github";
 
     // Parse coverage metrics from clover xml report.
     const clover: clover.Root = await parse(clover_path);
-    console.log(clover);
+    console.log(clover.coverage.project[0].metric[0]);
     // const percentage = metrix["@coveredstatements"] / metrix["@statements"];
     // console.log(metrix["@coveredstatements"], metrix["@statements"]);
     // console.log(`Coverage percentage is ${percentage}`);

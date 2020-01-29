@@ -66,7 +66,7 @@ export interface Project {
 
 export interface Coverage {
     "@generated": number;
-    project: Project;
+    project: Project[];
 }
 
 export interface Root {
