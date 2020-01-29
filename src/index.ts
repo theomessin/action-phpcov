@@ -39,7 +39,7 @@ import * as github from "@actions/github";
 
     // Display the found URL as a console log message.
     console.log("You may find a full coverage report here: ");
-    console.log("https://${deployment.url}");
+    console.log(`https://${deployment.url}`);
 
     // Parse coverage metrics from clover xml report.
     const clover: clover.Root = await parse(clover_path);
@@ -47,7 +47,7 @@ import * as github from "@actions/github";
 
     // Check whether the total coverage is above the minimum.
     const min_coverage = Number(core.getInput("min_coverage"));
-    const coverage = metrix.coveredstatements / metrix.statements;
-    if (coverage < min_coverage) core.setFailed("Minimum coverage not met.");
+    const coverage = (metrix.coveredstatements / metrix.statements) * 100;
     console.log(`Actual coverage is ${coverage}%. Minimum is ${min_coverage}%`);
+    if (coverage < min_coverage) core.setFailed("Minimum coverage not met.");
 })();
