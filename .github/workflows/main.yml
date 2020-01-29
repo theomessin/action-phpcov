@@ -28,5 +28,6 @@ jobs:
     - id: phpcov
       uses: theomessin/action-phpcov@master
       with:
+        now_project: "action-phpcov"
         now_token: ${{ secrets.NOW_TOKEN }}
     - run: curl "${{ steps.phpcov.outputs.url }}"

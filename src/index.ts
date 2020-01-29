@@ -26,8 +26,8 @@ import * as github from "@actions/github";
     const now_token = core.getInput("now_token");
     
     const repo = github.context.repo;
-    // Prepare project name to use to publish coverage.
-    const name = `phpcov/${repo.owner}/${repo.repo}`;
+    // Prepare project name to use to publish coverage. Use input value or default.
+    const name = core.getInput("now_project") || `phpcov-${repo.owner}-${repo.repo}`;
 
     // Deploy coverage report using Now.
     const deployment = await now(name, now_token, html_report);
