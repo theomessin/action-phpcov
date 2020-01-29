@@ -1,14 +1,18 @@
 {
     "private": true,
     "devDependencies": {
-        "@zeit/ncc": "^0.21.0"
+        "@zeit/ncc": "^0.21.0",
+        "purdy": "^3.5.1"
     },
     "dependencies": {
         "@actions/core": "^1.2.2",
         "@actions/exec": "^1.0.3",
         "@actions/github": "^2.0.1",
         "@octokit/webhooks": "^7.0.0",
-        "now-client": "^6.0.1"
+        "@types/purdy": "^3.5.0",
+        "@types/tmp": "^0.1.0",
+        "now-client": "^6.0.1",
+        "tmp": "^0.1.0"
     },
     "scripts": {
         "build": "ncc build -m src/index.ts -o dist"

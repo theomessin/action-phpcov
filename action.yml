@@ -3,6 +3,9 @@ description: 'GitHub Action to turbocharge phpunit code coverage reports.'
 inputs:
   now_token:
     required: true
+outputs:
+  report_url:
+    description: ''
 runs:
   using: 'node12'
   main: 'dist/index.js'
