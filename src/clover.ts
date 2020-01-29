@@ -31,19 +31,19 @@ export interface ProjectMetricsAttributes extends PackageMetricsAttributes {
 }
 
 export interface ClassMetrics {
-    "@": ClassMetricsAttributes;
+    "$": ClassMetricsAttributes;
 }
 
 export interface FileMetrics {
-    "@": FileMetricsAttributes;
+    "$": FileMetricsAttributes;
 }
 
 export interface PackageMetrics {
-    "@": PackageMetricsAttributes;
+    "$": PackageMetricsAttributes;
 }
 
 export interface ProjectMetrics {
-    "@": ProjectMetricsAttributes;
+    "$": ProjectMetricsAttributes;
 }
 
 export interface Class {

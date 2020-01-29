@@ -38,6 +38,6 @@ import * as github from "@actions/github";
     core.setOutput("url", `https://${deployment.url}`);
 
     // Parse coverage metrics from clover xml report.
-    const clover = await parse(clover_path);
-    console.log(clover.coverage.project[0].metrics[0]);
+    const clover: clover.Root = await parse(clover_path);
+    console.log(clover.coverage.project[0].metrics[0]["$"]);
 })();
