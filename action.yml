@@ -9,6 +9,9 @@ inputs:
     required: true
   now_token:
     required: true
+  min_coverage:
+    default: 75
+    required: true
 outputs:
   url:
     description: ''

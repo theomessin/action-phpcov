@@ -39,5 +39,10 @@ import * as github from "@actions/github";
 
     // Parse coverage metrics from clover xml report.
     const clover: clover.Root = await parse(clover_path);
-    console.log(clover.coverage.project[0].metrics[0]["$"]);
+    const metrix = clover.coverage.project[0].metrics[0]["$"];
+
+    // Check whether the total coverage is above the minimum.
+    const min_coverage = Number(core.getInput("min_coverage"));
+    const coverage = metrix.coveredstatements / metrix.statements;
+    if (coverage < min_coverage) core.setFailed("Minimum coverage not met.");
 })();
