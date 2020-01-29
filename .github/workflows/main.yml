@@ -6,10 +6,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        path: .action
+        repository: laravel/laravel
     - uses: actions/checkout@v2
       with:
-        repository: laravel/laravel
+        path: .action
     - id: composer-cache
       run: |
         echo "::set-output name=dir::$(composer config cache-files-dir)"
