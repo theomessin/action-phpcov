@@ -26,10 +26,10 @@ import * as github from "@actions/github";
     const now_token = core.getInput("now_token");
     
     const repo = github.context.repo;
-    // Prepare domain to use to publish coverage.
-    const domain = `phpcov-${repo.repo}-${repo.owner}`;
+    // Prepare project name to use to publish coverage.
+    const name = `phpcov/${repo.owner}/${repo.repo}`;
 
     // Deploy coverage report using Now.
-    const deployment = await now(domain, now_token, html_report);
+    const deployment = await now(name, now_token, html_report);
     core.setOutput("url", `https://${deployment.url}`);
 })();
