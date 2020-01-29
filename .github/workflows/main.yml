@@ -31,6 +31,7 @@ jobs:
     - uses: ./.action
       id: phpcov
       with:
+        min_coverage: 35
+        now_project: "action-phpcov"
         now_token: ${{ secrets.NOW_TOKEN }}
-        now_project: "action-phpcov-${{ github.ref }}"
     - run: curl "${{ steps.phpcov.outputs.url }}"
