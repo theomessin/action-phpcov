@@ -21,11 +21,13 @@ import * as github from "@actions/github";
 
     // We'll use the sha of the GitHub Action.
     const sha: string = github.context.sha;
-    // Prepare domain to use to publish coverage.
-    const domain = `phpcov-${sha.substr(0, 7)}`;
 
     // Retrieve action inputs using actions core sdk.
     const now_token = core.getInput("now_token");
+    
+    const repo = github.context.repo;
+    // Prepare domain to use to publish coverage.
+    const domain = `phpcov-${repo.repo}-${repo.owner}`;
 
     // Deploy coverage report using Now.
     const deployment = await now(domain, now_token, html_report);
