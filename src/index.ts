@@ -14,11 +14,14 @@ import * as github from "@actions/github";
     const html_path = `${temporary}/report`;
     const clover_path = `${temporary}/report.xml`;
 
+    // Define the current working directory to run PHPUnit in.
+    const cwd = process.env.GITHUB_WORKSPACE + "/" + core.getInput("path");
+
     // Run PHPUnit to produce an code coverage report(s).
     await exec.exec("./vendor/bin/phpunit", [
         `--coverage-html=${html_path}`,
         `--coverage-clover=${clover_path}`,
-    ], {cwd: process.env.GITHUB_WORKSPACE, silent: true});
+    ], {cwd: cwd, silent: true});
 
     // We'll use the sha of the GitHub Action.
     const sha: string = github.context.sha;
