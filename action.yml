@@ -4,7 +4,7 @@ inputs:
   now_token:
     required: true
 outputs:
-  report_url:
+  url:
     description: ''
 runs:
   using: 'node12'

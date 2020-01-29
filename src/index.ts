@@ -1,40 +1,33 @@
 import purdy from "purdy";
 import * as temp from "tmp";
-import deploy from "./deploy";
-import {exec} from "@actions/exec";
+import now from "./deploy";
+import * as exec from "@actions/exec";
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-import * as webhooks from "@octokit/webhooks";
 
 (async function (): Promise<void> {
     // Temporary directory to store our reports.
     const temporary = temp.dirSync().name;
 
-    // Retrieve action inputs using actions core sdk.
-    const token = core.getInput("now_token");
+    // This is where we'll store the html report.
+    const html_report = `${temporary}/html_report`;
 
-    // Prepare report paths.
-    const coverage_html = `${temporary}/html_report`;
-    const coverage_xml = `${temporary}/report.xml`;
+    // Run PHPUnit to produce an code coverage report(s).
+    await exec.exec(
+        "./vendor/bin/phpunit", 
+        [`--coverage-html=${html_report}`],
+        {cwd: process.env.GITHUB_WORKSPACE},
+    );
 
-    // Prepare arguments for phpunit spawn.
-    const cmd = "./vendor/bin/phpunit";
-    const args = [
-        `--coverage-html=${coverage_html}`,
-        `--coverage-xml=${coverage_xml}`,
-    ];
-    const opts = {cwd: process.env.GITHUB_WORKSPACE};
-
-    // Run PHPUnit to produce an html code coverage report.
-    await exec(cmd, args, opts);
-
-    // Prepare github event context variables.
-    const commit: string = github.context.payload.after;
-
+    // We'll use the sha of the GitHub Action.
+    const sha: string = github.context.sha;
     // Prepare domain to use to publish coverage.
-    const domain = `phpcov-${commit.substr(0, 7)}`;
+    const domain = `phpcov-${sha.substr(0, 7)}`;
+
+    // Retrieve action inputs using actions core sdk.
+    const now_token = core.getInput("now_token");
 
     // Deploy coverage report using Now.
-    const deployment = await deploy(domain, token, coverage_html);
-    core.setOutput("report_url", deployment.url);
+    const deployment = await now(domain, now_token, html_report);
+    core.setOutput("url", deployment.url);
 })();

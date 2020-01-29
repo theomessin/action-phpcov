@@ -25,6 +25,8 @@ jobs:
         composer install --no-suggest --prefer-dist --optimize-autoloader
         php -r "file_exists('.env') || copy('.env.example', '.env');"
         php artisan key:generate
-    - uses: theomessin/action-phpcov@master
+    - id: phpcov
+      uses: theomessin/action-phpcov@master
       with:
         now_token: ${{ secrets.NOW_TOKEN }}
+    - run: echo "${{ steps.phpcov.outputs.url }}"
