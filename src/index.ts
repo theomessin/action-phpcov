@@ -31,5 +31,5 @@ import * as github from "@actions/github";
 
     // Deploy coverage report using Now.
     const deployment = await now(domain, now_token, html_report);
-    core.setOutput("url", deployment.url);
+    core.setOutput("url", `https://${deployment.url}`);
 })();
