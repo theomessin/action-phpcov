@@ -1,10 +1,16 @@
 name: 'phpcov'
 description: 'GitHub Action to turbocharge phpunit code coverage reports.'
 inputs:
+  path:
+    default: ''
+    required: true
   now_project:
     default: null
     required: true
   now_token:
+    required: true
+  min_coverage:
+    default: 75
     required: true
 outputs:
   url:

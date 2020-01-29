@@ -7,6 +7,9 @@ jobs:
     - uses: actions/checkout@v2
       with:
         repository: laravel/laravel
+    - uses: actions/checkout@v2
+      with:
+        path: .action
     - id: composer-cache
       run: |
         echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -25,9 +28,10 @@ jobs:
         composer install --no-suggest --prefer-dist --optimize-autoloader
         php -r "file_exists('.env') || copy('.env.example', '.env');"
         php artisan key:generate
-    - id: phpcov
-      uses: theomessin/action-phpcov@master
+    - uses: ./.action
+      id: phpcov
       with:
+        min_coverage: 35
         now_project: "action-phpcov"
         now_token: ${{ secrets.NOW_TOKEN }}
     - run: curl "${{ steps.phpcov.outputs.url }}"

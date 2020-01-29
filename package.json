@@ -11,8 +11,10 @@
         "@octokit/webhooks": "^7.0.0",
         "@types/purdy": "^3.5.0",
         "@types/tmp": "^0.1.0",
+        "@types/xml2js": "^0.4.5",
         "now-client": "^6.0.1",
-        "tmp": "^0.1.0"
+        "tmp": "^0.1.0",
+        "xml2js": "^0.4.23"
     },
     "scripts": {
         "build": "ncc build -m src/index.ts -o dist"
