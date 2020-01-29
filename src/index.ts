@@ -1,6 +1,7 @@
-import purdy from "purdy";
-import * as temp from "tmp";
 import now from "./deploy";
+import * as temp from "tmp";
+import parse from "./parse";
+import * as clover from "./clover";
 import * as exec from "@actions/exec";
 import * as core from "@actions/core";
 import * as github from "@actions/github";
@@ -10,14 +11,14 @@ import * as github from "@actions/github";
     const temporary = temp.dirSync().name;
 
     // This is where we'll store the html report.
-    const html_report = `${temporary}/html_report`;
+    const html_path = `${temporary}/report`;
+    const clover_path = `${temporary}/report.xml`;
 
     // Run PHPUnit to produce an code coverage report(s).
-    await exec.exec(
-        "./vendor/bin/phpunit", 
-        [`--coverage-html=${html_report}`],
-        {cwd: process.env.GITHUB_WORKSPACE},
-    );
+    await exec.exec("./vendor/bin/phpunit", [
+        `--coverage-html=${html_path}`,
+        `--coverage-clover=${clover_path}`,
+    ], {cwd: process.env.GITHUB_WORKSPACE, silent: true});
 
     // We'll use the sha of the GitHub Action.
     const sha: string = github.context.sha;
@@ -30,6 +31,14 @@ import * as github from "@actions/github";
     const name = core.getInput("now_project") || `phpcov-${repo.owner}-${repo.repo}`;
 
     // Deploy coverage report using Now.
-    const deployment = await now(name, now_token, html_report);
+    const deployment = await now(name, now_token, html_path);
     core.setOutput("url", `https://${deployment.url}`);
+
+    // Parse coverage metrics from clover xml report.
+    const clover: clover.Root = await parse(clover_path);
+    const metrix = clover.coverage.project.metric;
+    console.log(metrix);
+    // const percentage = metrix["@coveredstatements"] / metrix["@statements"];
+    // console.log(metrix["@coveredstatements"], metrix["@statements"]);
+    // console.log(`Coverage percentage is ${percentage}`);
 })();
