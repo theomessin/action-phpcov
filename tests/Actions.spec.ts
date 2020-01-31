@@ -35,10 +35,11 @@ const __phpunit = "./vendor/bin/phpunit";
 // Set GITHUB_WORKSPACE environment variable.
 const __workdir = "/github/workspace";
 process.env.GITHUB_WORKSPACE = __workdir;
+const __dashboardurl = "example.now.sh";
 
 const __phpcovoutput = (function (coverage: number) {
     return {
-        deployment: { url: "https://example.now.sh" },
+        deployment: { url: __dashboardurl },
         "metrix": { coverage: coverage },
     };
 });
@@ -76,7 +77,7 @@ test("it outputs to console correctly", async () => {
     // Assert: output contains percentage bar.
     expect(output).toMatch("▰▰▰▰▰▱▱▱▱▱");
     // Assert: output contains report url.
-    expect(output).toMatch("https://example.now.sh");
+    expect(output).toMatch(__dashboardurl);
 });
 
 test("it fails if minimum coverage is not met", async () => {
@@ -92,4 +93,14 @@ test("it fails if minimum coverage is not met", async () => {
     expect(output).toMatch("35%");
     // Assert: output contains actual coverage.
     expect(setFailed).toBeCalledTimes(1);
+});
+
+test("it sets GitHub Action url output correctly", async () => {
+    // Arrange: Mock Phpcov return value to __phpcovoutput.
+    (<jest.Mock>Phpcov).mockResolvedValue(__phpcovoutput(.50));
+    // Act: run Action.
+    await Action();
+    // Assert: GitHub Actions output set.
+    expect(setOutput).toBeCalledTimes(1);
+    expect(setOutput).toBeCalledWith("url", "https://" + __dashboardurl);
 });

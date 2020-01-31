@@ -50,9 +50,26 @@ jobs:
 This will output a message such as this:
 
 ```
-You may find a full coverage report here: 
-https://action-phpcov-n97ng2w3w.now.sh
-Actual coverage is 44.230769230769226%. Minimum is 35%
+PHPUnit 8.5.2 by Sebastian Bergmann and contributors.
+
+Example (Tests\Unit\Example)
+ ✔ Basic test
+
+Example (Tests\Feature\Example)
+ ✔ Basic test
+
+Time: 160 ms, Memory: 18.00 MB
+
+OK (2 tests, 2 assertions)
+
+Generating code coverage report in Clover XML format ... done [10 ms]
+
+Generating code coverage report in HTML format ... done [20 ms]
+
+[Actual coverage is 44.23%. Minimum coverage is 35%]
+▰▰▰▰▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱
+You may find a full coverage report here:
+https://action-phpcov-5h6g7y19k.now.sh
 ```
 
 If the minimum coverage is not met, the action with fail.
