@@ -1,9 +1,8 @@
 import Phpcov from "./Phpcov";
 import * as core from "@actions/core";
-import PhpcovConfig from "./types/PhpcovConfig";
 import Progress from "./Progress";
 
-(async () => {
+export default async function Action () {
     // Call Phpcov with appropriate arguments.
     const output = await Phpcov({
         now_project: core.getInput("now_project"),
@@ -29,4 +28,4 @@ import Progress from "./Progress";
     console.log(`You may find a full coverage report here:`);
     console.log(report_url + "\n");
     if ((actual * 100) < minimum) core.setFailed("Minimum coverage has not met.");
-})();
+};
