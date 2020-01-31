@@ -16,6 +16,7 @@
         "@types/purdy": "^3.5.0",
         "@types/tmp": "^0.1.0",
         "@types/xml2js": "^0.4.5",
+        "chalk": "^3.0.0",
         "now-client": "^6.0.1",
         "tmp": "^0.1.0",
         "xml2js": "^0.4.23"
@@ -26,7 +27,9 @@
     },
     "jest": {
         "collectCoverage": true,
-        "collectCoverageFrom" : ["src/**/*.ts"],
+        "collectCoverageFrom": [
+            "src/**/*.ts"
+        ],
         "preset": "ts-jest",
         "testEnvironment": "node"
     }

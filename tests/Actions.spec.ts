@@ -75,7 +75,7 @@ test("it outputs to console correctly", async () => {
     // Assert: output contains actual coverage.
     expect(output).toMatch("50.00%");
     // Assert: output contains percentage bar.
-    expect(output).toMatch("▰▰▰▰▰▱▱▱▱▱");
+    expect(output).toMatch("▰▰▰▰▱▱▱▱");
     // Assert: output contains report url.
     expect(output).toMatch(__dashboardurl);
 });
