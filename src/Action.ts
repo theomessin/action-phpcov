@@ -34,6 +34,6 @@ export default async function Action () {
 
     // Now show the link for more information.
     console.log(color.green(`You may find a full coverage report here:`));
-    console.log(color.underline(color.green(report_url, report_url, { fallback: false }) + "\n"));
+    console.log(color.underline(color.green(report_url, "\n")));
     if ((actual * 100) < minimum) core.setFailed("Minimum coverage has not met.");
 };
