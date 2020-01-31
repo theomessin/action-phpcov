@@ -18,11 +18,11 @@ import Progress from "./Progress";
     const minimum = Number(core.getInput("min_coverage"));
 
     // Print the coverage level as a progress bar.
-    console.log(Progress(actual));
+    console.log(`\n\n${Progress(actual, 50)}]`);
     // Now print the coverage level in text.
-    console.log(`Actual coverage is ${pretty}%. Minimum is ${minimum}%`);
+    console.log(`[Actual coverage is ${pretty}%. Minimum is ${minimum}%]`);
     // Now show the link for more information.
-    console.log(`You may find a full coverage report here: ${output.deployment.url}`);
-
-    if (actual < minimum) core.setFailed("Minimum coverage has not met.");
+    console.log(`You may find a full coverage report here:`);
+    console.log(`https://${output.deployment.url}\n`)
+    if ((actual * 100) < minimum) core.setFailed("Minimum coverage has not met.");
 })();

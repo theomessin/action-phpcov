@@ -23,3 +23,9 @@ test("it returns full progress bar for 1.0", () => {
     const output = Progress(1);
     expect(output).toBe(__output);
 });
+
+test("it still works for 50 columns", () => {
+    const __output = "▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱";
+    const output = Progress(.5, 50);
+    expect(output).toBe(__output);
+});
