@@ -21,10 +21,10 @@ import Progress from "./Progress";
     const pretty = (actual * 100).toFixed(2);
     const minimum = Number(core.getInput("min_coverage"));
 
-    // Print the coverage level as a progress bar.
-    console.log(`\n\n[${Progress(actual, 30)}]`);
-    // Now print the coverage level in text.
+    // Print the coverage level in text.
     console.log(`[Actual coverage is ${pretty}%. Minimum is ${minimum}%]`);
+    // Now Print the coverage level as a progress bar.
+    console.log("\n" + Progress(actual, 30));
     // Now show the link for more information.
     console.log(`You may find a full coverage report here:`);
     console.log(report_url + "\n");
