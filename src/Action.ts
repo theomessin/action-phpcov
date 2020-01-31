@@ -12,17 +12,21 @@ import Progress from "./Progress";
         workdir: process.env.GITHUB_WORKSPACE,
     });
 
+    // Set the coverage report url.
+    const report_url = `https://${output.deployment.url}`;
+    core.setOutput("url", report_url);
+
     // Populate coverage numbers.
     const actual = output.metrix.coverage
     const pretty = (actual * 100).toFixed(2);
     const minimum = Number(core.getInput("min_coverage"));
 
     // Print the coverage level as a progress bar.
-    console.log(`\n\n${Progress(actual, 50)}]`);
+    console.log(`\n\n[${Progress(actual, 30)}]`);
     // Now print the coverage level in text.
     console.log(`[Actual coverage is ${pretty}%. Minimum is ${minimum}%]`);
     // Now show the link for more information.
     console.log(`You may find a full coverage report here:`);
-    console.log(`https://${output.deployment.url}\n`)
+    console.log(report_url + "\n");
     if ((actual * 100) < minimum) core.setFailed("Minimum coverage has not met.");
 })();
