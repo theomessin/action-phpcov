@@ -2,6 +2,7 @@ import Phpcov from "./Phpcov";
 import * as chalk from 'chalk';
 import Progress from "./Progress";
 import * as core from "@actions/core";
+import * as link from "terminal-link";
 
 export default async function Action () {
     // Call Phpcov with appropriate arguments.
@@ -22,18 +23,18 @@ export default async function Action () {
     const color = new chalk.Instance({level: 1});
 
     // Print the coverage level in text.
-    console.log(color.greenBright(
+    console.log(color.green(
         `\n[Actual coverage is ${pretty}%.`,
         `Minimum coverage is ${minimum}%]`,
     ));
 
     // Now Print the coverage level as a progress bar.
-    console.log(color.greenBright(
+    console.log(color.green(
         Progress(actual, 24),
     ));
 
     // Now show the link for more information.
-    console.log(color.greenBright(`You may find a full coverage report here:`));
-    console.log(color.underline(color.greenBright(report_url + "\n")));
+    console.log(color.green(`You may find a full coverage report here:`));
+    console.log(color.underline(color.green(link(report_url, report_url, { fallback: false }) + "\n")));
     if ((actual * 100) < minimum) core.setFailed("Minimum coverage has not met.");
 };
