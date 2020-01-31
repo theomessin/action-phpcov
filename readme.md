@@ -70,7 +70,7 @@ Generating code coverage report in HTML format ... done [20 ms]
 [Actual coverage is 44.23%. Minimum coverage is 35%]
 ▰▰▰▰▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱
 You may find a full coverage report here:
-https://action-phpcov-5h6g7y19k.now.sh
+https://action-phpcov.now.sh
 ```
 
 If the minimum coverage is not met, the action with fail.
