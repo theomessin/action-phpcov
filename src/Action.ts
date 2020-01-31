@@ -19,7 +19,8 @@ export default async function Action () {
     const actual = output.metrix.coverage
     const pretty = (actual * 100).toFixed(2);
     const minimum = Number(core.getInput("min_coverage"));
-    const blue = (s: string) => {console.log(chalk.blue(s))};
+    const color = new chalk.Instance({level: 1});
+    const blue = (s: string) => {console.log(color.blue(s))};
 
     // Print the coverage level in text.
     blue(`\n[Actual coverage is ${pretty}%. Minimum coverage is ${minimum}%]`);
