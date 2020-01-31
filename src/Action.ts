@@ -20,14 +20,20 @@ export default async function Action () {
     const pretty = (actual * 100).toFixed(2);
     const minimum = Number(core.getInput("min_coverage"));
     const color = new chalk.Instance({level: 1});
-    const blue = (s: string) => {console.log(color.blue(s))};
 
     // Print the coverage level in text.
-    blue(`\n[Actual coverage is ${pretty}%. Minimum coverage is ${minimum}%]`);
+    console.log(color.greenBright(
+        `\n[Actual coverage is ${pretty}%.`,
+        `Minimum coverage is ${minimum}%]`,
+    ));
+
     // Now Print the coverage level as a progress bar.
-    blue(Progress(actual, 24));
+    console.log(color.greenBright(
+        Progress(actual, 24),
+    ));
+
     // Now show the link for more information.
-    blue(`You may find a full coverage report here:`);
-    blue(report_url + "\n");
+    console.log(color.greenBright(`You may find a full coverage report here:`));
+    console.log(color.underline(color.greenBright(report_url + "\n")));
     if ((actual * 100) < minimum) core.setFailed("Minimum coverage has not met.");
 };
