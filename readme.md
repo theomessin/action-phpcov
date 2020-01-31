@@ -10,8 +10,6 @@ This action will produce a PHPUnit coverage HTML report, publish it using ZEIT N
 
 **`min_coverage`** _(optional)_ The minimum coverage to enforce (default is `50`).
 
-**`path`** _(optional)_ Relative path under $GITHUB_WORKSPACE to run PHPUnit.
-
 ### Outputs
 
 **`url`** The deployment URL from ZEIT Now with the coverage report.
