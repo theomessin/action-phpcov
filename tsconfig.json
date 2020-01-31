@@ -1,7 +1,7 @@
 {
   "include": [
     "src/**/*.ts",
-    "test/**/*.ts"
+    "tests/**/*.ts",
   ],
   "compilerOptions": {
     "target": "es2015",

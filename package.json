@@ -1,8 +1,12 @@
 {
     "private": true,
     "devDependencies": {
+        "@types/jest": "^25.1.1",
         "@zeit/ncc": "^0.21.0",
-        "purdy": "^3.5.1"
+        "jest": "^25.1.0",
+        "purdy": "^3.5.1",
+        "ts-jest": "^25.1.0",
+        "typescript": "^3.7.5"
     },
     "dependencies": {
         "@actions/core": "^1.2.2",
@@ -17,6 +21,13 @@
         "xml2js": "^0.4.23"
     },
     "scripts": {
-        "build": "ncc build -m src/index.ts -o dist"
+        "build": "ncc build -m src/Action.ts -o dist",
+        "test": "jest --verbose"
+    },
+    "jest": {
+        "collectCoverage": true,
+        "collectCoverageFrom" : ["src/**/*.ts"],
+        "preset": "ts-jest",
+        "testEnvironment": "node"
     }
 }
