@@ -1,20 +1,20 @@
-name: 'phpcov'
-description: 'GitHub Action to turbocharge phpunit code coverage reports.'
+name: "phpcov"
+description: "GitHub Action to turbocharge phpunit code coverage reports."
 inputs:
-  path:
-    default: ''
+  min_coverage:
+    default: 50
     required: true
   now_project:
     default: null
     required: true
   now_token:
     required: true
-  min_coverage:
-    default: 50
+  phpunit:
+    default: "./vendor/bin/phpunit"
     required: true
 outputs:
   url:
-    description: ''
+    description: ""
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"
