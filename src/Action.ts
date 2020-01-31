@@ -2,7 +2,6 @@ import Phpcov from "./Phpcov";
 import * as chalk from 'chalk';
 import Progress from "./Progress";
 import * as core from "@actions/core";
-import * as link from "terminal-link";
 
 export default async function Action () {
     // Call Phpcov with appropriate arguments.
@@ -35,6 +34,6 @@ export default async function Action () {
 
     // Now show the link for more information.
     console.log(color.green(`You may find a full coverage report here:`));
-    console.log(color.underline(color.green(link(report_url, report_url, { fallback: false }) + "\n")));
+    console.log(color.underline(color.green(report_url, report_url, { fallback: false }) + "\n"));
     if ((actual * 100) < minimum) core.setFailed("Minimum coverage has not met.");
 };
