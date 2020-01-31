@@ -10,6 +10,8 @@ This action will produce a PHPUnit coverage HTML report, publish it using ZEIT N
 
 **`min_coverage`** _(optional)_ The minimum coverage to enforce (default is `50`).
 
+**`phpunit`** _(optional)_ The phpunit command (default is `./vendor/bin/phpunit`).
+
 ### Outputs
 
 **`url`** The deployment URL from ZEIT Now with the coverage report.
@@ -43,6 +45,7 @@ jobs:
         min_coverage: 35
         now_project: "action-phpcov"
         now_token: ${{ secrets.NOW_TOKEN }}
+        phpunit: "./vendor/bin/phpunit --testdox"
 ```
 
 This will output a message such as this:
