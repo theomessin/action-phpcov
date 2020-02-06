@@ -1,9 +1,10 @@
 import deploy from "./Deploy";
+import Metrix from "./Metrix";
 import { dirSync } from "tmp";
 import { exec } from "@actions/exec";
+import * as core from "@actions/core";
 import Config from "./types/PhpcovConfig";
 import PhpcovOutput from "./types/PhpcovOutput";
-import Metrix from "./Metrix";
 
 /**
  * Runs the PHPCov Action that this package implements.
@@ -20,10 +21,13 @@ export default async (config: Config): Promise<PhpcovOutput> => {
 
     // Run PHPUnit to produce an code coverage reports.
     const command = `${config.phpunit} ${html} ${clover}`.split(" ");
-    await exec(command[0], command.splice(1), {
+    const code = await exec(command[0], command.splice(1), {
         cwd: config.workdir, 
         silent: (config.silent || false),
     });
+
+    // Fails if status code was not 0.
+    if (code !== 0) core.setFailed("PHPUnit test suite failed.");
 
     // Deploy the HTML report using Now.
     const deployment = await deploy(

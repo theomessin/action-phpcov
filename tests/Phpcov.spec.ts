@@ -3,12 +3,14 @@ import Deploy from "../src/Deploy";
 import Phpcov from "../src/Phpcov";
 import Metrix from "../src/Metrix";
 import { exec } from "@actions/exec";
+import * as core from "@actions/core";
 import { Deployment } from "now-client";
 import PhpcovConfig from "../src/types/PhpcovConfig";
 import PhpcovOutput from "../src/types/PhpcovOutput";
 import CoverageMetrix from "../src/types/CoverageMetrix";
 
 jest.mock("tmp");
+jest.mock("@actions/core");
 jest.mock("@actions/exec");
 jest.mock("../src/Deploy");
 jest.mock("../src/Metrix");
@@ -24,6 +26,8 @@ const default_config: PhpcovConfig = {
 };
 
 test("it produces coverage reports", async () => {
+    // Arrange: exec Deploy to return success.
+    (<jest.Mock>exec).mockReturnValue(0);
     // Predefine Phpcov config paths.
     const binary = "./vendor/bin/phpunit --testdox";
     const workdir = "/home/theomessin";
@@ -47,6 +51,8 @@ test("it produces coverage reports", async () => {
     expect(exec).toHaveBeenCalledTimes(1);
     // Assert: GitHub Actions exec was called with correct arguments.
     expect(exec).toHaveBeenCalledWith(command, expect.arrayContaining(args), opts);
+    // Assert: core set failed was called.
+    expect(core.setFailed).not.toBeCalled();
 });
 
 test("it uses temporary directory if none given", async () => {
@@ -118,4 +124,15 @@ test("it returns the coverage metrix", async () => {
 
     // Assert: deploy was called just once.
     expect(output).toMatchObject(__output);
+});
+
+test("it sets core to failed if phpunit fails", async () => {
+    // Arrange: mock Deploy to return a pre-set url.
+    (<jest.Mock>exec).mockReturnValue(1);
+
+    // Act: run Phpcov with test config.
+    await Phpcov(default_config);
+
+    // Assert: deploy was called just once.
+    expect(core.setFailed).toBeCalledWith("PHPUnit test suite failed.");
 });
